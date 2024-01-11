@@ -26,19 +26,6 @@ class Equiptments extends Item {
     }
 }
 
-const inventory = {}
-
-//Consumable Items : This is where items are placed(look for more ways to make this a lot better but for now this is good)
-RedPotion = new Consumable('Red Potion', 10, 'HP', 20, 'redPot')
-BluePotion =  new Consumable('Blue Potion', 15, 'MP', 5, 'bluePot')
-Apple = new Consumable('Apple', 5, 'HP', 5, 'apple')
-//End of Items
-
-//Equipment Items : This is where equipments are placed
-
-
-//End of Equipments
-
 class BaseChar {
     constructor(name, cClass, health, mana, str, mind, vit) {
         this.name = name
@@ -69,7 +56,30 @@ class Player extends BaseChar {
     }
 }
 
+class Enemy extends BaseChar {
+    constructor(name, cClass, health, mana, str, mind, vit) {
+        super(name, cClass, health, mana, str, mind, vit)
+    }
+}
+
+//Consumable Items : This is where items are placed(look for more ways to make this a lot better but for now this is good)
+RedPotion = new Consumable('Red Potion', 10, 'HP', 20, 'redPot')
+BluePotion =  new Consumable('Blue Potion', 15, 'MP', 5, 'bluePot')
+Apple = new Consumable('Apple', 5, 'HP', 5, 'apple')
+//End of Items
+
+//Equipment Items : This is where equipments are placed
+smallSword = new Equiptments('Small Swrod', 10, 'Weapon', 5)
+
+//End of Equipments
+
+//Characters Classes
 Knight = new Player('Test', 'Knight', 100, 30, 20, 5, 10 )
+//End of Classes
+
+//Enemy Type
+Slime = new Enemy('Slime1', 'Mob', 5, 2, 1, 2, 3)
+//End of Enemy
 
 console.log(Knight)
 
@@ -85,6 +95,55 @@ const addToInventory = (unitName, itemName, itemPlace) => {
 //     }
 // }
 
+const attackFunc = (attackerName, defenderName, ) => {
+    //temp items
+    attackerName = Knight
+    defenderName = Slime
+    //temp end
+    let hpAfter = null
+    hpAfter = attackerName.str - defenderName.vit
+    hpAfter = hpAfter - defenderName.health
+    return hpAfter
+}
+
+
+/*work on this later
+const itemChooseBattle = () => {
+
+}*/
+
+const playerFightDec = (attack, item, run, player, enemy) => {
+    //temp items
+    attack = true
+    item = false
+    run = false
+    //temp end
+    if (attack === true) {
+        return attackFunc(player)
+    }
+    /*work on this later
+    else if (item === true) {
+
+    }*/
+    else if (run === true) {
+
+    }
+}
+
+const battleFunc = (player, enemy) => {
+    console.log("Battle Start")
+    //temp items
+    player = Knight
+    enemy = Slime
+    //temp end
+
+    hpAfter = playerFightDec(null, null, null, player, enemy)
+    console.log(hpAfter)
+}
+
+// attackFunc()
+battleFunc()
+
 
 
 addToInventory(Knight, RedPotion, 'inventoryConsume')
@@ -92,33 +151,7 @@ addToInventory(Knight, Apple, 'inventoryConsume')
 console.log(Knight)
 
 
-// inventory[RedPotion.code] = RedPotion
-console.log(inventory)
-
 console.log(Knight.inventoryConsume['redPot'].value)
 Apple.description()
-// console.log(Knight.inventoryConsume['redPot'].description())
-// console.log(Knight.inventoryConsume['apple'].description())
 
 
-// const consumableItems = {
-//     redPot: ['RedPot', 'Red Potion', 10, 'HP', 15],
-//     bluePot: ['Blue Potion', 15, 'MP', 5]
-
-// }
-
-// const funcTest = (itemNameID) => {
-//     consumable = new Consumable(itemNameID[1], itemNameID[2], itemNameID[3], itemNameID[4])
-//     console.log(toString(consumable))
-//     return itemNameID
-// }
-
-// funcTest(consumableItems.redPot)
-
-
-smallSword = new Equiptments('Small Swrod', 10, 'Weapon', 5)
-
-// console.log(funcTest(consumableItems.redPot))
-
-
-// console.log(smallSword.price)
