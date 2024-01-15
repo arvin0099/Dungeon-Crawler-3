@@ -89,7 +89,7 @@ Knight = new Player('Test', 'Knight', 100, 30, 20, 5, 10 )
 Mage = new Player('Test', 'Mage', 80, 80, 5, 15, 2)
 //End of Classes
 
-Knight.equipableItems.weapon = SmallSword
+// Knight.equipableItems.weapon = SmallSword
 
 console.log(Knight.equipableItems.weapon)
 //Enemy Type
@@ -102,26 +102,29 @@ const addToInventory = (unitName, itemName, itemPlace) => {
     unitName[itemPlace].push(itemName.code)
 }
 
-const addToEquipment = () => {
-
+const equipItem = (target, itemToEquip) => {
+    //target is Knight and itemToEquip is 'SmallSword'
+    //Equip Item
+    itemToEquip = window[itemToEquip]
+    target.equipableItems[itemToEquip.type] = itemToEquip
+    //Remove Item from inventory
+    itemToEquip = target.inventoryEquip.indexOf(itemToEquip.code)
+    target.inventoryEquip.splice(itemToEquip, 1)
 }
 
-console.log(Apple)
 
-const useItem = (itemName, target) => {
-    //temp
-    itemName = 'Apple'
-    target = Knight
-    //temp
+
+const useItem = (itemName, target, removeCount) => {
+    //Heal Mana or Health
     itemName = window[itemName]
-    console.log(itemName)
-    console.log(Knight)
     let heal = target[itemName.type]
     heal = heal + itemName.value
-    console.log(heal)
-}
+    //Remove Item
+    itemName = target.inventoryConsume.indexOf(itemName.code)
+    target.inventoryConsume.splice(itemName, removeCount)
+    console.log(target.inventoryConsume)
 
-useItem()
+}
 
 // const itemPlace = (placeItem) => {
 //     if (placeItem === inventoryConsume) {
@@ -140,10 +143,10 @@ const attackFunc = (attackerName, defenderName, ) => {
     hpAfter = attackerName.str - defenderName.vit
     hpAfter = hpAfter - defenderName.health
     console.log(attackerName)
-    console.log(attackerName.equipableItems.weapon.power)
+    // console.log(attackerName.equipableItems.weapon.power)
     if (attackerName instanceof Player) {
         console.log('working')
-        hpAfter = hpAfter - attackerName.equipableItems.weapon.power
+        hpAfter = hpAfter - attackerName.str
     }
     console.log(Slime.health)
     console.log(hpAfter)
@@ -184,13 +187,12 @@ const totalPowerFunc = (player) => {
     player = Knight //Strenth of Knight is 20
     //t e 
     totalAPower = player.str
-    if (player.equipableItems.weapon.power > 0) {
+    if (player.equipableItems.weapon !== null) {
         console.log(true)
         totalAPower = player.str + player.equipableItems.weapon.power
     }
-    console.log(player.equipableItems.weapon.power)
     console.log(totalAPower)
-
+    return totalAPower
 }
 
 
@@ -213,10 +215,13 @@ battleFunc()
 
 
 addToInventory(Knight, RedPotion, 'inventoryConsume')
-addToInventory(Knight, Apple, 'inventoryConsume')
 addToInventory(Knight, SmallSword, 'inventoryEquip')
+addToInventory(Knight, Apple, 'inventoryConsume')
+addToInventory(Knight, Apple, 'inventoryConsume')
 console.log(Knight)
 totalPowerFunc()
+useItem('Apple', Knight, 1)
+equipItem(Knight, 'SmallSword')
 
 console.log(Knight.inventoryConsume)
 Apple.description()
