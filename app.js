@@ -19,9 +19,10 @@ class Consumable extends Item {
 }
 
 class Equiptments extends Item {
-    constructor(name, price, type, power, code) {
+    constructor(name, price, type, power, type, code) {
         super(name, price, type)
         this.power = power
+        this.type = type
         this.code = code
     }
 }
@@ -49,9 +50,22 @@ class Player extends BaseChar {
         super(name, cClass, health, mana, str, mind, vit)
         this.inventoryConsume = {}
         this.inventoryEquip = {}
-        this.equipableItems = {}
+        this.equipableItems = {
+            headGear: null,
+            weapon: null,
+            armor: null,
+        }
     }
     inventoryEquip() {
+
+    }
+}
+
+class MagicSkills {
+    constructor(name, damage, effect) {
+        this.name = name
+        this.damage = damage
+        this.effect = effect
 
     }
 }
@@ -69,7 +83,7 @@ Apple = new Consumable('Apple', 5, 'HP', 5, 'apple')
 //End of Items
 
 //Equipment Items : This is where equipments are placed
-smallSword = new Equiptments('Small Swrod', 10, 'Weapon', 5)
+smallSword = new Equiptments('Small Sword', 10, 'Weapon', 5)
 
 //End of Equipments
 
@@ -77,6 +91,9 @@ smallSword = new Equiptments('Small Swrod', 10, 'Weapon', 5)
 Knight = new Player('Test', 'Knight', 100, 30, 20, 5, 10 )
 //End of Classes
 
+Knight.equipableItems.weapon = smallSword
+
+console.log(Knight.equipableItems.weapon)
 //Enemy Type
 Slime = new Enemy('Slime1', 'Mob', 5, 2, 1, 2, 3)
 //End of Enemy
@@ -95,6 +112,8 @@ const addToInventory = (unitName, itemName, itemPlace) => {
 //     }
 // }
 
+
+//Damage Calculations
 const attackFunc = (attackerName, defenderName, ) => {
     //temp items
     attackerName = Knight
@@ -103,6 +122,12 @@ const attackFunc = (attackerName, defenderName, ) => {
     let hpAfter = null
     hpAfter = attackerName.str - defenderName.vit
     hpAfter = hpAfter - defenderName.health
+    console.log(attackerName)
+    console.log(attackerName.equipableItems.weapon.power)
+    if (attackerName instanceof Player) {
+        console.log('working')
+        hpAfter = hpAfter - attackerName.equipableItems.weapon.power
+    }
     return hpAfter
 }
 
@@ -116,6 +141,7 @@ const playerFightDec = (attack, item, run, player, enemy) => {
     //temp items
     attack = true
     item = false
+    magic = false
     run = false
     //temp end
     if (attack === true) {
@@ -123,15 +149,21 @@ const playerFightDec = (attack, item, run, player, enemy) => {
     }
     /*work on this later
     else if (item === true) {
-
+    
     }*/
+    else if (magic === true) {
+
+    }
+    
     else if (run === true) {
 
     }
 }
 
+
+//starting function
 const battleFunc = (player, enemy) => {
-    console.log("Battle Start")
+    console.log("Battle Starts!")
     //temp items
     player = Knight
     enemy = Slime
