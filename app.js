@@ -19,11 +19,11 @@ class Consumable extends Item {
 }
 
 class Equiptments extends Item {
-    constructor(name, price, type, power, type, code) {
+    constructor(name, price, type, power, code, quantity) {
         super(name, price, type)
         this.power = power
-        this.type = type
         this.code = code
+        this.quantity = quantity
     }
 }
 
@@ -55,6 +55,7 @@ class Player extends BaseChar {
             weapon: null,
             armor: null,
         }
+        this.totalPower = null
     }
     inventoryEquip() {
 
@@ -76,6 +77,7 @@ class Enemy extends BaseChar {
     }
 }
 
+
 //Consumable Items : This is where items are placed(look for more ways to make this a lot better but for now this is good)
 RedPotion = new Consumable('Red Potion', 10, 'HP', 20, 'redPot')
 BluePotion =  new Consumable('Blue Potion', 15, 'MP', 5, 'bluePot')
@@ -83,27 +85,33 @@ Apple = new Consumable('Apple', 5, 'HP', 5, 'apple')
 //End of Items
 
 //Equipment Items : This is where equipments are placed
-smallSword = new Equiptments('Small Sword', 10, 'Weapon', 5)
+smallSword = new Equiptments('Small Sword', 10, 'weapon', 5, 'smallSword')
+bigSword = new Equiptments('Big Sword', 50, 'weapon', 10, 'bigSword')
 
 //End of Equipments
 
 //Characters Classes
 Knight = new Player('Test', 'Knight', 100, 30, 20, 5, 10 )
+Mage = new Player('Test', 'Mage', 80, 80, 5, 15, 2)
 //End of Classes
 
 Knight.equipableItems.weapon = smallSword
 
 console.log(Knight.equipableItems.weapon)
 //Enemy Type
-Slime = new Enemy('Slime1', 'Mob', 5, 2, 1, 2, 3)
+Slime = new Enemy('Slime1', 'Mob', 20, 2, 1, 2, 3)
 //End of Enemy
 
 console.log(Knight)
 
 const addToInventory = (unitName, itemName, itemPlace) => {
-    console.log(unitName, itemName, itemPlace)
+    // console.log(unitName, itemName, itemPlace)
     unitName[itemPlace][itemName.code] = { ...itemName}
     console.log(unitName, itemName, itemPlace)
+}
+
+const addToEquipment = () => {
+
 }
 
 // const itemPlace = (placeItem) => {
@@ -128,6 +136,8 @@ const attackFunc = (attackerName, defenderName, ) => {
         console.log('working')
         hpAfter = hpAfter - attackerName.equipableItems.weapon.power
     }
+    console.log(Slime.health)
+    console.log(hpAfter)
     return hpAfter
 }
 
@@ -160,6 +170,21 @@ const playerFightDec = (attack, item, run, player, enemy) => {
     }
 }
 
+const totalPowerFunc = (player) => {
+    //t
+    player = Knight //Strenth of Knight is 20
+    //t e 
+    totalAPower = player.str
+    if (player.equipableItems.weapon.power > 0) {
+        console.log(true)
+        totalAPower = player.str + player.equipableItems.weapon.power
+    }
+    console.log(player.equipableItems.weapon.power)
+    console.log(totalAPower)
+
+}
+
+
 
 //starting function
 const battleFunc = (player, enemy) => {
@@ -180,10 +205,12 @@ battleFunc()
 
 addToInventory(Knight, RedPotion, 'inventoryConsume')
 addToInventory(Knight, Apple, 'inventoryConsume')
+addToInventory(Knight, smallSword, 'inventoryEquip')
 console.log(Knight)
-
+totalPowerFunc()
 
 console.log(Knight.inventoryConsume['redPot'].value)
 Apple.description()
 
-
+const testArray = Object.values(Knight.inventoryEquip)
+console.log(testArray)
