@@ -48,8 +48,8 @@ class BaseChar {
 class Player extends BaseChar {
     constructor(name, cClass, health, mana, str, mind, vit) {
         super(name, cClass, health, mana, str, mind, vit)
-        this.inventoryConsume = {}
-        this.inventoryEquip = {}
+        this.inventoryConsume = []
+        this.inventoryEquip = []
         this.equipableItems = {
             headGear: null,
             weapon: null,
@@ -79,14 +79,14 @@ class Enemy extends BaseChar {
 
 
 //Consumable Items : This is where items are placed(look for more ways to make this a lot better but for now this is good)
-RedPotion = new Consumable('Red Potion', 10, 'HP', 20, 'redPot')
-BluePotion =  new Consumable('Blue Potion', 15, 'MP', 5, 'bluePot')
-Apple = new Consumable('Apple', 5, 'HP', 5, 'apple')
+RedPotion = new Consumable('Red Potion', 10, 'HP', 20, 'RedPotion')
+BluePotion =  new Consumable('Blue Potion', 15, 'MP', 5, 'BluePotion')
+Apple = new Consumable('Apple', 5, 'HP', 5, 'Apple')
 //End of Items
 
 //Equipment Items : This is where equipments are placed
-smallSword = new Equiptments('Small Sword', 10, 'weapon', 5, 'smallSword')
-bigSword = new Equiptments('Big Sword', 50, 'weapon', 10, 'bigSword')
+SmallSword = new Equiptments('Small Sword', 10, 'weapon', 5, 'SmallSword')
+BigSword = new Equiptments('Big Sword', 50, 'weapon', 10, 'BigSword')
 
 //End of Equipments
 
@@ -95,7 +95,7 @@ Knight = new Player('Test', 'Knight', 100, 30, 20, 5, 10 )
 Mage = new Player('Test', 'Mage', 80, 80, 5, 15, 2)
 //End of Classes
 
-Knight.equipableItems.weapon = smallSword
+Knight.equipableItems.weapon = SmallSword
 
 console.log(Knight.equipableItems.weapon)
 //Enemy Type
@@ -106,7 +106,9 @@ console.log(Knight)
 
 const addToInventory = (unitName, itemName, itemPlace) => {
     // console.log(unitName, itemName, itemPlace)
-    unitName[itemPlace][itemName.code] = { ...itemName}
+    console.log(unitName)
+    unitName[itemPlace].push(itemName.code)
+    // unitName[itemPlace][itemName.code] = { ...itemName}
     console.log(unitName, itemName, itemPlace)
 }
 
@@ -205,11 +207,11 @@ battleFunc()
 
 addToInventory(Knight, RedPotion, 'inventoryConsume')
 addToInventory(Knight, Apple, 'inventoryConsume')
-addToInventory(Knight, smallSword, 'inventoryEquip')
+addToInventory(Knight, SmallSword, 'inventoryEquip')
 console.log(Knight)
 totalPowerFunc()
 
-console.log(Knight.inventoryConsume['redPot'].value)
+console.log(Knight.inventoryConsume)
 Apple.description()
 
 const testArray = Object.values(Knight.inventoryEquip)
