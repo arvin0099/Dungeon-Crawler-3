@@ -6,7 +6,6 @@ class Item {
         this.type = type
     }
 }
-
 class Consumable extends Item {
     constructor(name, price, type, value, code) {
         super(name, price, type)
@@ -17,7 +16,6 @@ class Consumable extends Item {
         console.log(`${this.name} is an ${this.type} item that can replenish ${this.type} for the amout of ${this.value}`)
     }
 }
-
 class Equiptments extends Item {
     constructor(name, price, type, power, code, quantity) {
         super(name, price, type)
@@ -26,7 +24,6 @@ class Equiptments extends Item {
         this.quantity = quantity
     }
 }
-
 class BaseChar {
     constructor(name, cClass, health, mana, str, mind, vit) {
         this.name = name
@@ -44,7 +41,6 @@ class BaseChar {
     }
 
 }
-
 class Player extends BaseChar {
     constructor(name, cClass, health, mana, str, mind, vit) {
         super(name, cClass, health, mana, str, mind, vit)
@@ -61,7 +57,6 @@ class Player extends BaseChar {
 
     }
 }
-
 class MagicSkills {
     constructor(name, damage, effect) {
         this.name = name
@@ -70,7 +65,6 @@ class MagicSkills {
 
     }
 }
-
 class Enemy extends BaseChar {
     constructor(name, cClass, health, mana, str, mind, vit) {
         super(name, cClass, health, mana, str, mind, vit)
@@ -79,9 +73,9 @@ class Enemy extends BaseChar {
 
 
 //Consumable Items : This is where items are placed(look for more ways to make this a lot better but for now this is good)
-RedPotion = new Consumable('Red Potion', 10, 'HP', 20, 'RedPotion')
-BluePotion =  new Consumable('Blue Potion', 15, 'MP', 5, 'BluePotion')
-Apple = new Consumable('Apple', 5, 'HP', 5, 'Apple')
+RedPotion = new Consumable('Red Potion', 10, 'health', 20, 'RedPotion')
+BluePotion =  new Consumable('Blue Potion', 15, 'mana', 5, 'BluePotion')
+Apple = new Consumable('Apple', 5, 'health', 5, 'Apple')
 //End of Items
 
 //Equipment Items : This is where equipments are placed
@@ -105,16 +99,29 @@ Slime = new Enemy('Slime1', 'Mob', 20, 2, 1, 2, 3)
 console.log(Knight)
 
 const addToInventory = (unitName, itemName, itemPlace) => {
-    // console.log(unitName, itemName, itemPlace)
-    console.log(unitName)
     unitName[itemPlace].push(itemName.code)
-    // unitName[itemPlace][itemName.code] = { ...itemName}
-    console.log(unitName, itemName, itemPlace)
 }
 
 const addToEquipment = () => {
 
 }
+
+console.log(Apple)
+
+const useItem = (itemName, target) => {
+    //temp
+    itemName = 'Apple'
+    target = Knight
+    //temp
+    itemName = window[itemName]
+    console.log(itemName)
+    console.log(Knight)
+    let heal = target[itemName.type]
+    heal = heal + itemName.value
+    console.log(heal)
+}
+
+useItem()
 
 // const itemPlace = (placeItem) => {
 //     if (placeItem === inventoryConsume) {
