@@ -156,6 +156,8 @@ const useItem = (itemName, target, removeCount) => {
 // }
 
 
+
+
 //Damage Calculations
 const attackFunc = (attackerName, defenderName, ) => {
     let hp = defenderName.health
