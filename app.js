@@ -11,7 +11,7 @@ class Consumable extends Item {
         super(name, price, type)
         this.value = value
         this.code = code
-        this.place = 'inventoryConsume'
+        this.place = 'iC'
         }
     description() {
         console.log(`${this.name} is an ${this.type} item that can replenish ${this.type} for the amout of ${this.value}`)
@@ -23,7 +23,7 @@ class Equiptments extends Item {
         this.power = power
         this.code = code
         this.quantity = quantity
-        this.place = 'inventoryEquip'
+        this.place = 'iE'
     }
 }
 class BaseChar {
@@ -50,8 +50,10 @@ class BaseChar {
 class Player extends BaseChar {
     constructor(name, cClass, health, mana, str, mind, vit) {
         super(name, cClass, health, mana, str, mind, vit)
-        this.inventoryConsume = []
-        this.inventoryEquip = []
+        //inventory for consumable
+        this.iC = []
+        //inventroy for equipments
+        this.iE = []
         this.skills = []
         this.equipableItems = {
             headGear: null,
@@ -105,7 +107,7 @@ FireBall = new MagicSkills ('Fire Ball', 5, null, 'FireBall')
 //End of Magic Skills
 
 const addToInventory = (unitName, itemName, itemPlace) => {
-    unitName[itemPlace].push(itemName.code)
+    unitName[itemName.place].push(itemName.code)
 }
 
 const equipItem = (target, itemToEquip) => {
@@ -114,8 +116,8 @@ const equipItem = (target, itemToEquip) => {
     itemToEquip = window[itemToEquip]
     target.equipableItems[itemToEquip.type] = itemToEquip
     //Remove Item from inventory
-    itemToEquip = target.inventoryEquip.indexOf(itemToEquip.code)
-    target.inventoryEquip.splice(itemToEquip, 1)
+    itemToEquip = target.iE.indexOf(itemToEquip.code)
+    target.iE.splice(itemToEquip, 1)
 }
 
 
@@ -145,12 +147,12 @@ const useItem = (itemName, target, removeCount) => {
     let heal = target[itemName.type]
     target[itemName.type] = heal + itemName.value
     //Remove Item
-    itemName = target.inventoryConsume.indexOf(itemName.code)
-    target.inventoryConsume.splice(itemName, removeCount)
+    itemName = target.iC.indexOf(itemName.code)
+    target.iC.splice(itemName, removeCount)
 }
 
 // const itemPlace = (placeItem) => {
-//     if (placeItem === inventoryConsume) {
+//     if (placeItem === iC) {
         
 //     }
 // }
@@ -161,12 +163,12 @@ const useItem = (itemName, target, removeCount) => {
 //Damage Calculations
 const attackFunc = (attackerName, defenderName, ) => {
     let hp = defenderName.health
-    console.log(hp)
+    // console.log(hp)
     let damage = null
     // hpAfter = attackerName.str - defenderName.vit
     // hpAfter = hpAfter - defenderName.health
     if (attackerName instanceof Player) {
-        console.log('working')
+        // console.log('working')
         damage = totalPowerFunc(attackerName)
         damage = damage - defenderName.vit
         console.log(damage)
@@ -176,16 +178,16 @@ const attackFunc = (attackerName, defenderName, ) => {
     else if (attackerName instanceof Enemy) {
         console.log('working')
         damage = damage - defenderName.vit
-        console.log(damage)
-        console.log(hp)
+        // console.log(damage)
+        // console.log(hp)
         if (damage < 0) {
             console.log(true)
             hp = hp - 1
         }
-        console.log(hp)
+        // console.log(hp)
     }
-    console.log(Slime.health)
-    console.log(hp)
+    // console.log(Slime.health)
+    // console.log(hp)
     return hp
 }
 
@@ -253,7 +255,7 @@ const rewardScreen = (player, enemy) => {
 
 //starting function
 const battleFunc = (player, enemy) => {
-    console.log("Battle Starts!")
+    // console.log("Battle Starts!")
     // playerFightDec(null, null, null, player, enemy)
     
 }
@@ -264,12 +266,12 @@ enemyTurn(Knight, Slime)
 //Battle Simulation
 // attackFunc()
 battleFunc(Knight, Slime)
-addToInventory(Knight, RedPotion, 'inventoryConsume')
-addToInventory(Knight, SmallSword, 'inventoryEquip')
+addToInventory(Knight, RedPotion, 'iC')
+addToInventory(Knight, SmallSword, 'iE')
 equipItem(Knight, 'SmallSword')
-addToInventory(Knight, Apple, 'inventoryConsume')
-addToInventory(Knight, Apple, 'inventoryConsume')
-addToInventory(Knight, BluePotion, 'inventoryConsume')
+addToInventory(Knight, Apple, 'iC')
+addToInventory(Knight, Apple, 'iC')
+addToInventory(Knight, BluePotion, 'iC')
 console.log(Knight)
 totalPowerFunc(Knight)
 useItem('Apple', Knight, 1)
@@ -277,8 +279,8 @@ console.log(Knight)
 useItem('BluePotion', Knight, 1)
 console.log(Knight)
 
-console.log(Knight.inventoryConsume)
+console.log(Knight.iC)
 Apple.description()
 
-const testArray = Object.values(Knight.inventoryEquip)
+const testArray = Object.values(Knight.iE)
 console.log(testArray)
