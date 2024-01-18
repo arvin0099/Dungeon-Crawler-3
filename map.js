@@ -1,4 +1,12 @@
-//10 14 limit - 1
+const canvas = document.querySelector('.game-canvas')
+const ctx = canvas.getContext('2d');
+
+const tileW = 26
+const tileH = 26
+
+const gridR = 10
+const gridC = 14
+
 const map = [
     [0,0,0,0,'B','N','M',0,0,0,0,0,0,0,],
     [0,'B','N','M','W',3,'E',0,'B','N','N','N','N','M',],
@@ -14,8 +22,42 @@ const map = [
 let playerLocID = 8
 let pLX = 5
 let pLY = 9
-
 map[pLY][pLX] = playerLocID
+
+
+const knightP = new Image()
+knightP.onload = () => {
+    ctx.drawImage(knightP, 0, 0)
+}
+
+knightP.src = 'src/knight.png'
+
+const updateAll = () => {
+    drawMap()
+    window.requestAnimationFrame(updateAll)
+}
+
+window.onload = () => {
+    window.requestAnimationFrame(updateAll)
+}
+
+const drawMap = () => {
+    for (let eachR = 0; eachR < gridR; eachR++) {
+        for (let eachC = 0; eachC < gridC; eachC++) {
+            let tile = map[eachR][eachC]
+            if (tile === 1) {
+                ctx.fillStyle = 'lightgray'
+            } else if (tile === playerLocID) {
+                ctx.fillStyle = 'red'
+            } else {
+                ctx.fillStyle = 'black'
+            }
+            ctx.fillRect(tileW * eachC, tileH * eachR, tileW, tileH)
+        }
+    }
+}
+
+drawMap()
 
 const move = (dir) => {
     switch(dir) {
