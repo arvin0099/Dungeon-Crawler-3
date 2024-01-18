@@ -25,21 +25,15 @@ let pLY = 9
 map[pLY][pLX] = playerLocID
 
 
-const knightP = new Image()
-knightP.onload = () => {
-    ctx.drawImage(knightP, 0, 0)
-}
+//Un comment this when ready to test
+// const updateAll = () => {
+//     drawMap()
+//     window.requestAnimationFrame(updateAll)
+// }
 
-knightP.src = 'src/knight.png'
-
-const updateAll = () => {
-    drawMap()
-    window.requestAnimationFrame(updateAll)
-}
-
-window.onload = () => {
-    window.requestAnimationFrame(updateAll)
-}
+// window.onload = () => {
+//     window.requestAnimationFrame(updateAll)
+// }
 
 const drawMap = () => {
     for (let eachR = 0; eachR < gridR; eachR++) {
