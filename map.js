@@ -1,10 +1,7 @@
-console.log('test')
-
-
-//10 13 limit
+//10 14 limit - 1
 const map = [
-    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,],
-    [0,'B','N','M','W',3,0,0,'B','N','N','N','N','M',],
+    [0,0,0,0,'B','N','M',0,0,0,0,0,0,0,],
+    [0,'B','N','M','W',3,'E',0,'B','N','N','N','N','M',],
     [0,'W',4,'E','W',1,'E',0,'W',1,1,1,1,'E',],
     [0,'W',1,'E','W',1,'M','N','B',1,'V','C',1,'E',],
     [0,'W',1,'E','W',1,1,1,1,1,0,'W',1,'E',],
@@ -18,37 +15,41 @@ let playerLocID = 8
 let pLX = 5
 let pLY = 9
 
-console.log(pLX)
-
-
 map[pLY][pLX] = playerLocID
 
-
-console.log(map)
-const move = (y, x, dir) => {
+const move = (dir) => {
     switch(dir) {
         case 'up':
-            if (checkBlock(y,x,dir) === true){
-                map[y][x] = 1
+            if (checkBlock(pLY - 1,pLX,dir) === true){
+                map[pLY][pLX] = 1
                 pLY -= 1
                 map[pLY][pLX] = playerLocID
                 console.log(true)
             }
             break
         case 'down':
-            map[y][x] = 1
-            map[y+1][x] = playerLocID
-            console.log(true)
+            if (checkBlock(pLY + 1,pLX,dir) === true){
+                map[pLY][pLX] = 1
+                pLY += 1
+                map[pLY][pLX] = playerLocID
+                console.log(true)
+            }
             break
         case 'right':
-            map[y][x] = 1
-            map[y][x+1] = playerLocID
-            console.log(true)
+            if (checkBlock(pLY,pLX + 1,dir) === true){
+                map[pLY][pLX] = 1
+                pLX += 1
+                map[pLY][pLX] = playerLocID
+                console.log(true)
+            }
             break
         case 'left':
-            map[y][x] = 1
-            map[y][x-1] = playerLocID
-            console.log(true)
+            if (checkBlock(pLY,pLX - 1,dir) === true){
+                map[pLY][pLX] = 1
+                pLX -= 1
+                map[pLY][pLX] = playerLocID
+                console.log(true)
+            }
             break
     }
 }
@@ -56,22 +57,25 @@ const move = (y, x, dir) => {
 const checkBlock = (newY, newX, direction) => {
     let check = map[newY][newX]
     console.log(check)
-    check = 'e'
     if (check === 0 || check === 'N' || check === 'E' || check === 'S' || check ===  'W' || check === 'C' || check === 'V' || check === 'B' || check ===  'M') {
         console.log('blocked dont move')
     }
     else if (check === 1) {
-        console.log('path go moves')
-        move(newY, newX, direction)
+        return true
     }
     else if (check === 2) {
+        console.log(Knight)
         addToInventory(Knight, SmallSword, 'iE')
+        console.log(Knight)
+        return true
     }
     else if (check === 3) {
         console.log('you get an helmet')
+        return true
     }
     else if (check === 4) {
         console.log('you get an armor')
+        return true
     }
     else {
         console.log('error')
@@ -95,21 +99,26 @@ const randomEncC = () => {
     return randRate
 }
 
-// checkBlock(8,5)
-// move(9,5,'up')
-
 document.addEventListener('keydown', function(event) {
     if (event.key === 'w' || event.key === 'W') {
        console.log('up')
+       move('up')
+       printMap()
     }
     else if (event.key === 's' || event.key === 'S') {
        console.log('down')
+       move('down')
+       printMap()
     }
     else if (event.key === 'D' || event.key === 'd') {
        console.log('right')
+       move('right')
+       printMap()
     }
     else if (event.key === 'a' || event.key === 'a') {
        console.log('left')
+       move('left')
+       printMap()
     }
     else if (event.key === ' ') {
         
@@ -122,15 +131,11 @@ document.addEventListener('keydown', function(event) {
 console.log(map)
 
 
-
+//Testing Debug
 function printMap() {
     console.clear();
     map.forEach(row => console.log(row.join(' ')));
 }
-
-// setInterval(printMap, 1000)
-
-
 
 //random enemy stats generator
 const createEnemyShip = (name) => {
