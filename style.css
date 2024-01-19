@@ -8,10 +8,9 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    transform: scale(2.5) translateY(-3%);
+    transform: scale(2.5);
 
 }
-
 
 .game-container {
     display: flex;
@@ -20,11 +19,26 @@ body {
 }
 
 .bottom-control {
+    background-color: rgb(53, 94, 135);
+    outline: 1px solid white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
     width: 564px;
-    outline: 1px red solid;
     margin-top: 1px;
 }
 
+.bot-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.bot {
+    overflow-y: auto;
+    /* border: 1px solid rgb(255, 255, 255); */
+    padding: 40 4px;
+}
 
 .game-canvas {
     width: 364px;
@@ -33,29 +47,74 @@ body {
 }
 
 .boxes-container {
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
     display: flex;
     flex-direction: column;
     width: 200px;
     height: 260px;
 }
 
-.box {
-    border: 1px solid rgb(105, 148, 125);
-    padding: 1px;
-    margin: 0.5px;
-    text-align: center;
+/* #box {
+    flex: 1 0 0;
     background-color: bisque;
-}
-
-#textBox {
+    display: flex; 
+    flex-direction: column; 
+    overflow-y: auto;
+    max-height: 100%; 
+    border: 1px solid black;
+    padding: 0 2px;
     flex-grow: 3;
+} */
+
+
+.text-section, .item-section, .equipment-section, .status-section, .equipd-section, .text {
+    flex: 1 0 0;
+    display: flex; 
+    flex-direction: column; 
+    overflow-y: auto;
+    max-height: 100%; 
+    border: 1px solid black;
+    padding: 0 2px;
 }
 
-#itemBox {
+#box {
+    background-color: bisque;
+    position: relative;
     flex-grow: 2;
+    /* outline: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-y: auto;
+    height: 20%;
 }
 
-#statusBox {
-    flex-grow: 1;
+#box2, #box3 {
+    background-color: bisque;
+    position: relative;
+    flex-grow: 2;
+    /* outline: 1px solid red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-y: auto;
+    height: 5%;
 }
+
+
+
+.list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+    font-size: small;
+}
+
+
+.title {
+    font-size: small;
+    margin: 0;
+    padding: 5px;
+}
+

@@ -9,16 +9,66 @@
     <script src="map.js" defer></script>
 </head>
 <body>
-
         <div class="game-container">
             <canvas class="game-canvas" width="364" height="260"></canvas>
                 <div class="boxes-container">
-                    <div class="box" id="textBox">Box 1</div>
-                    <div class="box" id="itemBox">Box 2</div>
-                    <div class="box" id="statusBox">Box 3</div>
+                    <div id="box">
+                        <div class="text-section">
+                            <h1 class="title">Text Box</h1>
+                            <ul class="list" id="textList">
+                                <li>test</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="box2">
+                        <div class="item-section">
+                            <h2 class="title">Items</h2>
+                            <ul class="list" id="itemList">
+                                <li>test</li>
+                                <li>test</li>
+                                <li>test</li>
+                                <li>test</li>
+                                <li>test</li>
+                                <li>test</li>
+                            </ul>
+                        </div>
+                        <div class="equipment-section">
+                            <h3 class="title">Equipments</h3>
+                            <ul class="list" id="equipmentList">
+                                <li>test</li>
+                                <li>test</li>
+                                <li>test</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="box3">
+                        <div class="status-section">
+                            <h4 class="title">Status</h4>
+                            <ul class="list" id="statusList">
+                                <li>test</li>
+                            </ul>
+                        </div>
+                        <div class="equipd-section">
+                            <h5 class="title">Equipped</h4>
+                            <ul class="list" id="equipdList">
+                                <li>test</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-        <div class="bottom-control">BottomControl</div>
-
+        <div class="bottom-control">
+            <div class="bot-container">
+                <div class="bot">
+                    <div>Attack</div>
+                    <div>Magic</div>
+                    <div>Items</div>
+                    <div>Run</div>
+                </div>
+            </div>
+            <div class="bot-container">
+                <div class="bot">List</div>
+            </div>
+        </div>
 </body>
 </html>
