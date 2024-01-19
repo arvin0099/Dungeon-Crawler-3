@@ -25,15 +25,15 @@ let pLY = 9
 map[pLY][pLX] = playerLocID
 
 
-//Un comment this when ready to test
-// const updateAll = () => {
-//     drawMap()
-//     window.requestAnimationFrame(updateAll)
-// }
 
-// window.onload = () => {
-//     window.requestAnimationFrame(updateAll)
-// }
+const updateAll = () => {
+    drawMap()
+    window.requestAnimationFrame(updateAll)
+}
+
+window.onload = () => {
+    window.requestAnimationFrame(updateAll)
+}
 
 const drawMap = () => {
     for (let eachR = 0; eachR < gridR; eachR++) {

@@ -1,15 +1,61 @@
 body {
     background-color: #333;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
+    padding: 0;
     overflow: hidden;
+    transform: scale(2.5) translateY(-3%);
+
 }
 
+
 .game-container {
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-control {
+    width: 564px;
+    outline: 1px red solid;
+    margin-top: 1px;
+}
+
+
+.game-canvas {
     width: 364px;
-    height: 260px;
-    margin: 0 auto;
+    height: 258px;
     outline: 1px solid white;
-    transform: scale(3) translateY(50%);
+}
+
+.boxes-container {
+    outline: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 260px;
+}
+
+.box {
+    border: 1px solid rgb(105, 148, 125);
+    padding: 1px;
+    margin: 0.5px;
+    text-align: center;
+    background-color: bisque;
+}
+
+#textBox {
+    flex-grow: 3;
+}
+
+#itemBox {
+    flex-grow: 2;
+}
+
+#statusBox {
+    flex-grow: 1;
 }
