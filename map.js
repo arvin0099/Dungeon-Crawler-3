@@ -166,7 +166,7 @@ document.addEventListener('keydown', function(event) {
 // console.log(testIndex)
 
 
-console.log(map)
+// console.log(map)
 
 
 //Testing Debug
@@ -175,15 +175,6 @@ console.log(map)
 //     map.forEach(row => console.log(row.join(' ')));
 // }
 
-//random enemy stats generator
-const createEnemyShip = (name) => {
-    name = name
-    hull = minMaxRan(3,7)
-    firePower = minMaxRan(2,5)
-    shipAccuracy = minMaxRan(60,81)
-    const enemyShip = new ship (name, hull, firePower, shipAccuracy)
-    enemies[name] = enemyShip
-}
 
 //creating random numbers
 const minMaxRan = (min, max) => {
@@ -236,7 +227,23 @@ const updateStatusPlayer = () => {
     }
 }
 
+const battleTime = () => {
+    const list = document.getElementById('battleList')
+    list.innerHTML = ''
+    const attackC = document.createElement('li')
+    attackC.addEventListener('click', onBattleListClick)
+    attackC.textContent = 'Attack'
+    list.appendChild(attackC)
+}
 
+const onBattleListClick = () => {
+    
+}
+
+
+
+
+battleTime()
 
 Knight.displayEquipped()
 
@@ -249,16 +256,16 @@ console.log(Knight)
 
 
 const onListItemClick = (event) => {
-    console.log(event.target.textContent);
+    console.log(event.target.textContent)
     let clicked = event.target.textContent
     useItem(clicked, Knight, 1)
-    event.target.style.color = 'blue'; 
+    event.target.style.color = 'blue'
 }
 const onListEquipClick = (event) => {
-    console.log(event.target.textContent);
+    console.log(event.target.textContent)
     let clicked = event.target.textContent
     equipItem(Knight, clicked)
-    event.target.style.color = 'blue'; 
+    event.target.style.color = 'blue' 
 }
 const removeEquipment = (event) => {
     console.log(event.target.textContent)
@@ -298,8 +305,7 @@ const removeEquipment = (event) => {
 }
 
 
-console.log(window['SmallSword'])
-console.log(SmallSword.type)
+
 
 
 
