@@ -36,7 +36,6 @@ body {
 
 .bot {
     overflow-y: auto;
-    /* border: 1px solid rgb(255, 255, 255); */
     padding: 40 4px;
 }
 
@@ -47,24 +46,11 @@ body {
 }
 
 .boxes-container {
-    /* outline: 1px solid red; */
     display: flex;
     flex-direction: column;
     width: 200px;
     height: 260px;
 }
-
-/* #box {
-    flex: 1 0 0;
-    background-color: bisque;
-    display: flex; 
-    flex-direction: column; 
-    overflow-y: auto;
-    max-height: 100%; 
-    border: 1px solid black;
-    padding: 0 2px;
-    flex-grow: 3;
-} */
 
 
 .text-section, .item-section, .equipment-section, .status-section, .equipd-section, .text {
@@ -81,7 +67,6 @@ body {
     background-color: bisque;
     position: relative;
     flex-grow: 2;
-    /* outline: 1px solid red; */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -93,7 +78,6 @@ body {
     background-color: bisque;
     position: relative;
     flex-grow: 2;
-    /* outline: 1px solid red; */
     display: flex;
     flex-direction: row;
     justify-content: center;

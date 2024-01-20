@@ -145,7 +145,6 @@ const addToInventory = (unitName, itemName) => {
 }
 
 const equipItem = (target, itemToEquip) => {
-    //target is Knight and itemToEquip is 'SmallSword'
     //Equip Item
     itemToEquip = window[itemToEquip]
     if (target.equipableItems[itemToEquip.type] === 'none'){
@@ -157,27 +156,6 @@ const equipItem = (target, itemToEquip) => {
         target.displayEquipped()
     }
 }
-
-
-/* NOT SURE IF THIS IS NEEDED PREP FOR NOW
-const checkItem = (target, item) => {
-    //temp
-    target = Knight
-    item = 'BigSword'
-    //temp end
-    // let itemType = window[item].type
-    // console.log(itemType) 
-    if (window[item] instanceof Consumable) {
-        console.log(true)
-    }
-    else if (window[item] instanceof Equiptments) {
-        console.log(true)
-    }
-
-}
-
-checkItem()
-*/
 
 const useItem = (itemName, target, removeCount) => {
     //Heal Mana or Health
@@ -230,36 +208,6 @@ const attackFunc = (attackerName, defenderName) => {
     }
 }
 
-const chooseItem = (itemName) => {
-
-}
-
-const chooseMagic = () => {
-
-}
-
-const playerFightDec = (attack, item, run, player, enemy) => {
-    //temp items
-    attack = true
-    item = false
-    magic = false
-    run = false
-    //temp end
-    if (attack === true) {
-        return attackFunc(player, enemy)
-    }
-    else if (item === true) {
-        chooseItem()
-    }
-    else if (magic === true) {
-        chooseMagic(player, enemy)
-    }
-    
-    else if (run === true) {
-
-    }
-}
-
 const totalPowerFunc = (player) => {
     totalAPower = player.str
     if (player.equipableItems.weapon !== 'none') {
@@ -270,8 +218,6 @@ const totalPowerFunc = (player) => {
 
 const enemyTurn = (player, enemy) => {
     attackFunc(enemy, player)
-    // let hpAfterDamage = attackFunc(enemy, player)
-    // battleCalc(player, enemy)
 }
 
 const rewardScreen = (player, enemy, list2, textBoxtext) => {
@@ -326,20 +272,8 @@ const battleCalc = (player, enemy) => {
 
 }
 
-// rewardScreen(Knight, Slime)
-// enemyTurn(Knight, Slime)
-
-//Battle Simulation
 addToInventory(Knight, RedPotion, 'iC')
 addToInventory(Knight, SmallSword, 'iE')
-// equipItem(Knight, 'SmallSword')
 addToInventory(Knight, Apple, 'iC')
 addToInventory(Knight, Apple, 'iC')
 addToInventory(Knight, BluePotion, 'iC')
-console.log(Knight)
-// useItem('Apple', Knight, 1)
-console.log(Knight)
-// useItem('BluePotion', Knight, 1)
-console.log(Knight)
-
-console.log(Knight.iC)

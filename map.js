@@ -24,8 +24,6 @@ let pLX = 5
 let pLY = 9
 map[pLY][pLX] = playerLocID
 
-
-
 const updateAll = () => {
     drawMap()
     window.requestAnimationFrame(updateAll)
@@ -146,9 +144,6 @@ const randomEncC = (dir) => {
 }
 let fight = false
 
-const testfunction1 = () => {
-}
-
 document.addEventListener('keydown', function(event) {
     if (event.key === 'w' || event.key === 'W') {
         if (fight === false){
@@ -172,35 +167,10 @@ document.addEventListener('keydown', function(event) {
     }
 })
 
-// console.log(testIndex)
-
-
-// console.log(map)
-
-
-//Testing Debug
-// function printMap() {
-//     console.clear();
-//     map.forEach(row => console.log(row.join(' ')));
-// }
-
-
 //creating random numbers
 const minMaxRan = (min, max) => {
     return Math.floor(min + (Math.random() * (max - min)))
 }
-
-// const titleItemList = document.getElementById('titleItemList')
-// const itemList = document.getElementById('itemList')
-
-// titleItemList.addEventListener('click', () => {
-//     if(itemList.style.display === 'none') {
-//         itemList.style.display = ''
-//     } else {
-//         itemList.style.display = 'none'
-//     }
-//     }
-// )
 
 const updateItemsInvetoryToList = () => {
     const list = document.querySelector('#itemList')
@@ -246,20 +216,8 @@ const onBattleListClick = (player, enemy) => {
     attackFunc(player, enemy)
     console.log('test')}
 
-// battleTime(Knight, Slime)
-
-
-
 
 Knight.displayEquipped()
-
-
-// Knight.displayStats()
-// console.log(playerStatusArray.length)
-
-// console.log(Knight)
-
-
 
 const onListItemClick = (event) => {
     console.log(event.target.textContent)
@@ -306,11 +264,7 @@ const removeEquipment = (event) => {
         Knight.displayEquipped()
         updateEquipsInvetoryToList()
     }
-
-
 }
-
-
 
 
 
