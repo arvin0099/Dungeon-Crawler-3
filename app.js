@@ -38,8 +38,8 @@ class BaseChar {
 
     }
 
-    displayStats() {
-        console.log(`${this.name}'s Stats:`)
+    displayStats(code, name) {
+        return `${name}: ${this[code]}`
     }
 
     levelUp() {
@@ -56,11 +56,43 @@ class Player extends BaseChar {
         this.iE = []
         this.skills = []
         this.equipableItems = {
-            headGear: null,
-            weapon: null,
-            armor: null,
+            headGear: 'none',
+            weapon: 'none',
+            armor: 'none',
         }
         this.totalPower = null
+    }
+
+    displayEquipped () {
+        const list = document.querySelector('#equipdList')
+        list.innerHTML = ''
+
+        const headItem = document.createElement('li')
+        if (this.equipableItems.headGear instanceof Equiptments) {
+            headItem.textContent = `Head Gear: ${this.equipableItems.headGear.name}`
+            headItem.addEventListener('click', removeEquipment)
+        } else {
+            headItem.textContent = 'Head Gear: none'
+        }
+        list.appendChild(headItem)
+    
+        const weaponItem = document.createElement('li')
+        if (this.equipableItems.weapon instanceof Equiptments) {
+            weaponItem.textContent = `Weapon: ${this.equipableItems.weapon.name}`
+            weaponItem.addEventListener('click', removeEquipment)
+        } else {
+            weaponItem.textContent = 'Weapon: none'
+        }
+        list.appendChild(weaponItem)
+        
+        const armorItem = document.createElement('li')
+        if (this.equipableItems.armor instanceof Equiptments) {
+            armorItem.textContent = `Armor: ${this.equipableItems.armor.name}`
+            armorItem.addEventListener('click', removeEquipment)
+        } else {
+            armorItem.textContent = 'Armor: none'
+        }
+        list.appendChild(armorItem)
     }
 }
 class MagicSkills {
@@ -88,6 +120,8 @@ Apple = new Consumable('Apple', 5, 'health', 5, 'Apple')
 //Equipment Items : This is where equipments are placed
 SmallSword = new Equiptments('Small Sword', 10, 'weapon', 5, 'SmallSword')
 BigSword = new Equiptments('Big Sword', 50, 'weapon', 10, 'BigSword')
+Helmet = new Equiptments('Helmet', 5, 'headGear', 3, 'Helmet')
+ChestPlate = new Equiptments('Chest Plate', 5, 'armor', 10, 'ChestPlate')
 
 //End of Equipments
 
@@ -106,18 +140,23 @@ RedSlime = new Enemy('Red Slime', 'mob', 40, 10, 5, 2, 5, RedPotion, 80)
 FireBall = new MagicSkills ('Fire Ball', 5, null, 'FireBall')
 //End of Magic Skills
 
-const addToInventory = (unitName, itemName, itemPlace) => {
+const addToInventory = (unitName, itemName) => {
     unitName[itemName.place].push(itemName.code)
+    
 }
 
 const equipItem = (target, itemToEquip) => {
     //target is Knight and itemToEquip is 'SmallSword'
     //Equip Item
     itemToEquip = window[itemToEquip]
-    target.equipableItems[itemToEquip.type] = itemToEquip
-    //Remove Item from inventory
-    itemToEquip = target.iE.indexOf(itemToEquip.code)
-    target.iE.splice(itemToEquip, 1)
+    if (target.equipableItems[itemToEquip.type] === 'none'){
+        target.equipableItems[itemToEquip.type] = itemToEquip
+        //Remove Item from inventory
+        itemToEquip = target.iE.indexOf(itemToEquip.code)
+        target.iE.splice(itemToEquip, 1)
+        updateEquipsInvetoryToList()
+        target.displayEquipped()
+    }
 }
 
 
@@ -149,6 +188,8 @@ const useItem = (itemName, target, removeCount) => {
     //Remove Item
     itemName = target.iC.indexOf(itemName.code)
     target.iC.splice(itemName, removeCount)
+    updateItemsInvetoryToList()
+    updateStatusPlayer()
 }
 
 // const itemPlace = (placeItem) => {
@@ -268,19 +309,15 @@ enemyTurn(Knight, Slime)
 battleFunc(Knight, Slime)
 addToInventory(Knight, RedPotion, 'iC')
 addToInventory(Knight, SmallSword, 'iE')
-equipItem(Knight, 'SmallSword')
+// equipItem(Knight, 'SmallSword')
 addToInventory(Knight, Apple, 'iC')
 addToInventory(Knight, Apple, 'iC')
 addToInventory(Knight, BluePotion, 'iC')
 console.log(Knight)
 totalPowerFunc(Knight)
-useItem('Apple', Knight, 1)
+// useItem('Apple', Knight, 1)
 console.log(Knight)
-useItem('BluePotion', Knight, 1)
+// useItem('BluePotion', Knight, 1)
 console.log(Knight)
 
 console.log(Knight.iC)
-Apple.description()
-
-const testArray = Object.values(Knight.iE)
-console.log(testArray)

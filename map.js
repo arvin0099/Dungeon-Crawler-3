@@ -101,7 +101,8 @@ const checkBlock = (newY, newX, direction) => {
     }
     else if (check === 2) {
         console.log(Knight)
-        addToInventory(Knight, SmallSword, 'iE')
+        addToInventory(Knight, BigSword)
+        updateEquipsInvetoryToList()
         console.log(Knight)
         return true
     }
@@ -168,10 +169,10 @@ console.log(map)
 
 
 //Testing Debug
-function printMap() {
-    console.clear();
-    map.forEach(row => console.log(row.join(' ')));
-}
+// function printMap() {
+//     console.clear();
+//     map.forEach(row => console.log(row.join(' ')));
+// }
 
 //random enemy stats generator
 const createEnemyShip = (name) => {
@@ -187,3 +188,121 @@ const createEnemyShip = (name) => {
 const minMaxRan = (min, max) => {
     return Math.floor(min + (Math.random() * (max - min)))
 }
+
+// const titleItemList = document.getElementById('titleItemList')
+// const itemList = document.getElementById('itemList')
+
+// titleItemList.addEventListener('click', () => {
+//     if(itemList.style.display === 'none') {
+//         itemList.style.display = ''
+//     } else {
+//         itemList.style.display = 'none'
+//     }
+//     }
+// )
+
+const updateItemsInvetoryToList = () => {
+    const list = document.querySelector('#itemList')
+    list.innerHTML = ''
+    for(let i = 0; i < Knight.iC.length; i++) {
+        const newItem = document.createElement('li')
+        newItem.textContent = Knight.iC[i]
+        newItem.addEventListener('click', onListItemClick)
+        list.appendChild(newItem)
+    }
+}
+
+const updateEquipsInvetoryToList = () => {
+    const list = document.querySelector('#equipmentList')
+    list.innerHTML = ''
+    for(let i = 0; i <= Knight.iE.length; i++) {
+        const newItem = document.createElement('li')
+        newItem.addEventListener('click', onListEquipClick)
+        newItem.textContent = Knight.iE[i]
+        list.appendChild(newItem)
+    }
+}
+
+const playerStatusArray = [['health', 'HP'],['mana', 'Mana'],['str', 'Strength'],['mind', 'Mind'],['vit', 'Vitality']]
+
+const updateStatusPlayer = () => {
+    const list = document.getElementById('statusList')
+    list.innerHTML = ''
+    for(let i = 0; i < playerStatusArray.length; i++) {
+        const stat = document.createElement('li')
+        stat.textContent = Knight.displayStats(playerStatusArray[i][0], playerStatusArray[i][1])
+        list.appendChild(stat)
+    }
+}
+
+
+
+Knight.displayEquipped()
+
+
+// Knight.displayStats()
+console.log(playerStatusArray.length)
+
+console.log(Knight)
+
+
+
+const onListItemClick = (event) => {
+    console.log(event.target.textContent);
+    let clicked = event.target.textContent
+    useItem(clicked, Knight, 1)
+    event.target.style.color = 'blue'; 
+}
+const onListEquipClick = (event) => {
+    console.log(event.target.textContent);
+    let clicked = event.target.textContent
+    equipItem(Knight, clicked)
+    event.target.style.color = 'blue'; 
+}
+const removeEquipment = (event) => {
+    console.log(event.target.textContent)
+    let clicked = event.target.textContent
+    if (clicked.includes('Weapon:')) {
+        let item1 = Knight.equipableItems.weapon.code
+        item1 = window[item1]
+        console.log(item1)
+        addToInventory(Knight, item1)
+        Knight.equipableItems.weapon = 'none'
+        console.log(Knight.equipableItems)
+        Knight.displayEquipped()
+        updateEquipsInvetoryToList()
+    }
+   else if (clicked.includes('Head Gear:')) {
+        let item1 = Knight.equipableItems.headGear.code
+        item1 = window[item1]
+        console.log(item1)
+        addToInventory(Knight, item1)
+        Knight.equipableItems.headGear = 'none'
+        console.log(Knight.equipableItems)
+        Knight.displayEquipped()
+        updateEquipsInvetoryToList()
+    }
+    if (clicked.includes('Armor:')) {
+        let item1 = Knight.equipableItems.armor.code
+        item1 = window[item1]
+        console.log(item1)
+        addToInventory(Knight, item1)
+        Knight.equipableItems.armor = 'none'
+        console.log(Knight.equipableItems)
+        Knight.displayEquipped()
+        updateEquipsInvetoryToList()
+    }
+
+
+}
+
+
+console.log(window['SmallSword'])
+console.log(SmallSword.type)
+
+
+addToInventory(Knight, Helmet)
+addToInventory(Knight, ChestPlate)
+updateEquipsInvetoryToList()
+updateItemsInvetoryToList()
+updateStatusPlayer()
