@@ -126,13 +126,13 @@ ChestPlate = new Equiptments('Chest Plate', 5, 'armor', 10, 'ChestPlate')
 //End of Equipments
 
 //Characters Classes
-Knight = new Player('Test', 'Knight', 1, 30, 20, 5, 10 )
+Knight = new Player('Test', 'Knight', 30, 30, 20, 5, 10 )
 Mage = new Player('Test', 'Mage', 80, 80, 5, 15, 2)
 //End of Classes
 
 //Enemy Type
-Slime = new Enemy('Slime', 'mob', 20, 2, 25, 2, 12, Apple, 55)
-Bat = new Enemy ('Bat', 'mob', 30, 2, 45, 0, 0, BluePotion, 20)
+Slime = new Enemy('Slime', 'mob', 30, 2, 15, 2, 12, Apple, 55)
+Bat = new Enemy ('Bat', 'mob', 70, 2, 25, 0, 0, RedPotion, 20)
 RedSlime = new Enemy('Red Slime', 'mob', 40, 10, 5, 2, 5, RedPotion, 80)
 //End of Enemy
 
@@ -189,11 +189,13 @@ const attackFunc = (attackerName, defenderName) => {
         updateStatusPlayer()
     }
     else if (attackerName instanceof Enemy) {
-        console.log('working')
-        // let defenderDefence = defenderName.vit
+        damage = attackerName.str
         damage = damage - defenderName.vit
+        console.log(damage)
+        
         list.appendChild(newItemList)
         if (damage <= 0) {
+            console.log(damage)
             hp = hp - 1
             defenderName.health = hp
             newItemList.textContent = `Enemy attacked for 1`
@@ -205,8 +207,21 @@ const attackFunc = (attackerName, defenderName) => {
             }
             updateStatusPlayer()
         }
+        else if (damage > 0) {
+            console.log(damage)
+            defenderName.health = hp
+            defenderName.health = hp - damage
+            newItemList.textContent = `Enemy attacked for ${damage}`
+            const newHealth = document.createElement('li')
+            newHealth.textContent = `Your health is ${defenderName.health}`
+            list.appendChild(newHealth)
+            if (defenderName.health <= 0) {
+                battleCalc(defenderName, attackerName)
+            }
+            updateStatusPlayer()
+        }
+        }
     }
-}
 
 const totalPowerFunc = (player) => {
     totalAPower = player.str
