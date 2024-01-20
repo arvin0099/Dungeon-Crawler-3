@@ -132,7 +132,7 @@ Mage = new Player('Test', 'Mage', 80, 80, 5, 15, 2)
 
 //Enemy Type
 Slime = new Enemy('Slime', 'mob', 30, 2, 15, 2, 12, Apple, 55)
-Bat = new Enemy ('Bat', 'mob', 70, 2, 25, 0, 0, RedPotion, 20)
+Bat = new Enemy ('Bat', 'mob', 70, 2, 23, 0, 0, RedPotion, 20)
 RedSlime = new Enemy('Red Slime', 'mob', 40, 10, 5, 2, 5, RedPotion, 80)
 //End of Enemy
 
