@@ -192,43 +192,25 @@ const useItem = (itemName, target, removeCount) => {
     updateStatusPlayer()
 }
 
-// const itemPlace = (placeItem) => {
-//     if (placeItem === iC) {
-        
-//     }
-// }
-
-
-
-
 //Damage Calculations
 const attackFunc = (attackerName, defenderName, ) => {
     let hp = defenderName.health
-    // console.log(hp)
     let damage = null
-    // hpAfter = attackerName.str - defenderName.vit
-    // hpAfter = hpAfter - defenderName.health
     if (attackerName instanceof Player) {
-        // console.log('working')
         damage = totalPowerFunc(attackerName)
         damage = damage - defenderName.vit
         console.log(damage)
         hp = hp - damage
-        // hpAfter = hpAfter - damage
     }
     else if (attackerName instanceof Enemy) {
         console.log('working')
+        // let defenderDefence = defenderName.vit
         damage = damage - defenderName.vit
-        // console.log(damage)
-        // console.log(hp)
         if (damage < 0) {
             console.log(true)
             hp = hp - 1
         }
-        // console.log(hp)
     }
-    // console.log(Slime.health)
-    // console.log(hp)
     return hp
 }
 
@@ -239,12 +221,6 @@ const chooseItem = (itemName) => {
 const chooseMagic = () => {
 
 }
-
-
-/*work on this later
-const itemChooseBattle = () => {
-
-}*/
 
 const playerFightDec = (attack, item, run, player, enemy) => {
     //temp items
@@ -296,8 +272,7 @@ const rewardScreen = (player, enemy) => {
 
 //starting function
 const battleFunc = (player, enemy) => {
-    // console.log("Battle Starts!")
-    // playerFightDec(null, null, null, player, enemy)
+
     
 }
 
@@ -305,8 +280,6 @@ rewardScreen(Knight, Slime)
 enemyTurn(Knight, Slime)
 
 //Battle Simulation
-// attackFunc()
-battleFunc(Knight, Slime)
 addToInventory(Knight, RedPotion, 'iC')
 addToInventory(Knight, SmallSword, 'iE')
 // equipItem(Knight, 'SmallSword')
@@ -314,7 +287,6 @@ addToInventory(Knight, Apple, 'iC')
 addToInventory(Knight, Apple, 'iC')
 addToInventory(Knight, BluePotion, 'iC')
 console.log(Knight)
-totalPowerFunc(Knight)
 // useItem('Apple', Knight, 1)
 console.log(Knight)
 // useItem('BluePotion', Knight, 1)

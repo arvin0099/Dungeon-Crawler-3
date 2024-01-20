@@ -107,11 +107,15 @@ const checkBlock = (newY, newX, direction) => {
         return true
     }
     else if (check === 3) {
+        addToInventory(Knight, Helmet)
         console.log('you get an helmet')
+        updateEquipsInvetoryToList()
         return true
     }
     else if (check === 4) {
         console.log('you get an armor')
+        addToInventory(Knight, ChestPlate)
+        updateEquipsInvetoryToList()
         return true
     }
     else {
@@ -120,45 +124,42 @@ const checkBlock = (newY, newX, direction) => {
 
 }
 
-const moveSprite = () => {
-
-}
 
 const radnomEncounter = () => {
+    let monsterArr = [Slime, Bat]
+    let randRate = Math.floor(0 + (Math.random() * (2 - 0)))
+    battleFunc(Knight, monsterArr[randRate])
+    
+}
+
+const randomEncC = (dir) => {
+    let randRate = Math.floor(0 + (Math.random() * (100 - 0)))
+    console.log(randRate)
+    if (randRate >= 60) {
+        radnomEncounter()
+    }
+    else {
+        move(dir)
+    }
 
 }
 
-const randomEncC = () => {
-    let randRate = Math.floor(0 + (Math.random() * (100 - 0)))
-    if (randRate >= 40) {
-        radnomEncounter()
-    }
-    return randRate
+const testfunction1 = () => {
+
 }
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'w' || event.key === 'W') {
-       console.log('up')
-       move('up')
-       printMap()
+       randomEncC('up')
     }
     else if (event.key === 's' || event.key === 'S') {
-       console.log('down')
-       move('down')
-       printMap()
+       randomEncC('down')
     }
     else if (event.key === 'D' || event.key === 'd') {
-       console.log('right')
-       move('right')
-       printMap()
+       randomEncC('right')
     }
     else if (event.key === 'a' || event.key === 'a') {
-       console.log('left')
-       move('left')
-       printMap()
-    }
-    else if (event.key === ' ') {
-        
+       randomEncC('left')
     }
 })
 
@@ -301,8 +302,7 @@ console.log(window['SmallSword'])
 console.log(SmallSword.type)
 
 
-addToInventory(Knight, Helmet)
-addToInventory(Knight, ChestPlate)
+
 updateEquipsInvetoryToList()
 updateItemsInvetoryToList()
 updateStatusPlayer()
