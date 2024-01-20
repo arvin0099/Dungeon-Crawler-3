@@ -222,7 +222,9 @@ const attackFunc = (attackerName, defenderName) => {
             const newHealth = document.createElement('li')
             newHealth.textContent = `Your health is ${defenderName.health}`
             list.appendChild(newHealth)
-            battleCalc(defenderName, attackerName)
+            if (defenderName.health <= 0) {
+                battleCalc(defenderName, attackerName)
+            }
             updateStatusPlayer()
         }
     }
@@ -303,7 +305,6 @@ const battleFunc = (player, enemy) => {
     attackC.addEventListener('click',() => onBattleListClick(player, enemy, textBoxtext))
     attackC.textContent = 'Attack'
     list2.appendChild(attackC)
-    
 }
 
 const battleCalc = (player, enemy) => {
