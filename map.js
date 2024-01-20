@@ -126,9 +126,10 @@ const checkBlock = (newY, newX, direction) => {
 
 
 const radnomEncounter = () => {
+    fight = true
     let monsterArr = [Slime, Bat]
     let randRate = Math.floor(0 + (Math.random() * (2 - 0)))
-    battleFunc(Knight, monsterArr[randRate])
+    battleTime(Knight, monsterArr[randRate])
     
 }
 
@@ -143,23 +144,31 @@ const randomEncC = (dir) => {
     }
 
 }
+let fight = false
 
 const testfunction1 = () => {
-
 }
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'w' || event.key === 'W') {
-       randomEncC('up')
+        if (fight === false){
+            randomEncC('up')
+        }
     }
     else if (event.key === 's' || event.key === 'S') {
-       randomEncC('down')
+        if (fight === false){ 
+            randomEncC('down')
+        }
     }
     else if (event.key === 'D' || event.key === 'd') {
-       randomEncC('right')
+        if (fight === false){
+             randomEncC('right')
+        }
     }
     else if (event.key === 'a' || event.key === 'a') {
-       randomEncC('left')
+        if (fight === false){
+            randomEncC('left')
+        }
     }
 })
 
@@ -227,31 +236,28 @@ const updateStatusPlayer = () => {
     }
 }
 
-const battleTime = () => {
-    const list = document.getElementById('battleList')
-    list.innerHTML = ''
-    const attackC = document.createElement('li')
-    attackC.addEventListener('click', onBattleListClick)
-    attackC.textContent = 'Attack'
-    list.appendChild(attackC)
+const battleTime = (player, enemy) => {
+    let currentEnemy = new Enemy (enemy.name, enemy.cClass, enemy.health, enemy.mana, enemy.str, enemy.mind, enemy.vit, enemy.drop, enemy.dropRate)
+    battleFunc(player, currentEnemy)
+
 }
 
-const onBattleListClick = () => {
-    
-}
+const onBattleListClick = (player, enemy) => {
+    attackFunc(player, enemy)
+    console.log('test')}
+
+// battleTime(Knight, Slime)
 
 
 
-
-battleTime()
 
 Knight.displayEquipped()
 
 
 // Knight.displayStats()
-console.log(playerStatusArray.length)
+// console.log(playerStatusArray.length)
 
-console.log(Knight)
+// console.log(Knight)
 
 
 

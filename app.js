@@ -126,13 +126,13 @@ ChestPlate = new Equiptments('Chest Plate', 5, 'armor', 10, 'ChestPlate')
 //End of Equipments
 
 //Characters Classes
-Knight = new Player('Test', 'Knight', 100, 30, 20, 5, 10 )
+Knight = new Player('Test', 'Knight', 1, 30, 20, 5, 10 )
 Mage = new Player('Test', 'Mage', 80, 80, 5, 15, 2)
 //End of Classes
 
 //Enemy Type
-Slime = new Enemy('Slime', 'mob', 20, 2, 1, 2, 3, Apple, 55)
-Bat = new Enemy ('Bat', 'mob', 30, 2, 10, 0, 0, BluePotion, 20)
+Slime = new Enemy('Slime', 'mob', 20, 2, 25, 2, 12, Apple, 55)
+Bat = new Enemy ('Bat', 'mob', 30, 2, 45, 0, 0, BluePotion, 20)
 RedSlime = new Enemy('Red Slime', 'mob', 40, 10, 5, 2, 5, RedPotion, 80)
 //End of Enemy
 
@@ -142,7 +142,6 @@ FireBall = new MagicSkills ('Fire Ball', 5, null, 'FireBall')
 
 const addToInventory = (unitName, itemName) => {
     unitName[itemName.place].push(itemName.code)
-    
 }
 
 const equipItem = (target, itemToEquip) => {
@@ -193,25 +192,40 @@ const useItem = (itemName, target, removeCount) => {
 }
 
 //Damage Calculations
-const attackFunc = (attackerName, defenderName, ) => {
+const attackFunc = (attackerName, defenderName) => {
+    const list = document.getElementById('textList')
+    const newItemList = document.createElement('li')
     let hp = defenderName.health
     let damage = null
     if (attackerName instanceof Player) {
         damage = totalPowerFunc(attackerName)
         damage = damage - defenderName.vit
-        console.log(damage)
+        newItemList.textContent = `You attacked for ${damage}`
+        list.appendChild(newItemList)
         hp = hp - damage
+        defenderName.health = hp
+        const newHealth = document.createElement('li')
+        newHealth.textContent = `Enemy health is ${hp}`
+        list.appendChild(newHealth)
+        battleCalc(attackerName, defenderName)
+        updateStatusPlayer()
     }
     else if (attackerName instanceof Enemy) {
         console.log('working')
         // let defenderDefence = defenderName.vit
         damage = damage - defenderName.vit
-        if (damage < 0) {
-            console.log(true)
+        list.appendChild(newItemList)
+        if (damage <= 0) {
             hp = hp - 1
+            defenderName.health = hp
+            newItemList.textContent = `Enemy attacked for 1`
+            const newHealth = document.createElement('li')
+            newHealth.textContent = `Your health is ${defenderName.health}`
+            list.appendChild(newHealth)
+            battleCalc(defenderName, attackerName)
+            updateStatusPlayer()
         }
     }
-    return hp
 }
 
 const chooseItem = (itemName) => {
@@ -246,38 +260,73 @@ const playerFightDec = (attack, item, run, player, enemy) => {
 
 const totalPowerFunc = (player) => {
     totalAPower = player.str
-    if (player.equipableItems.weapon !== null) {
+    if (player.equipableItems.weapon !== 'none') {
         totalAPower = player.str + player.equipableItems.weapon.power
     }
     return totalAPower
 }
 
 const enemyTurn = (player, enemy) => {
-    console.log(player)
-    let hpAfterDamage = attackFunc(enemy, player)
-    battleFunc()
-    console.log(hpAfterDamage)
+    attackFunc(enemy, player)
+    // let hpAfterDamage = attackFunc(enemy, player)
+    // battleCalc(player, enemy)
 }
 
-const rewardScreen = (player, enemy) => {
+const rewardScreen = (player, enemy, list2, textBoxtext) => {
     let drop = null
     drop = Math.round(Math.random() * 100)
     if (drop <= enemy.dropRate) {
         drop = enemy.drop.code
         addToInventory(player, window[drop], window[drop].place)  
+        textBoxtext.textContent = (`You defeated ${enemy.name} and got ${drop}`)
+        list2.appendChild(textBoxtext)
+        updateItemsInvetoryToList()
+        updateStatusPlayer()
     }
-
-
+    else {
+        textBoxtext.textContent = (`You defeated ${enemy.name}`)
+        list2.appendChild(textBoxtext)
+        updateStatusPlayer()
+    }
+    const list = document.getElementById('battleList')
+    list.innerHTML = ''
+    fight = false
 }
-
 //starting function
 const battleFunc = (player, enemy) => {
-
+    const list = document.getElementById('textList')
+    const textBoxtext = document.createElement('li')
+    textBoxtext.textContent = `Encountered the monster ${enemy.name}`
+    list.appendChild(textBoxtext)
+    const list2 = document.getElementById('battleList')
+    const attackC = document.createElement('li')
+    attackC.addEventListener('click',() => onBattleListClick(player, enemy, textBoxtext))
+    attackC.textContent = 'Attack'
+    list2.appendChild(attackC)
     
 }
 
-rewardScreen(Knight, Slime)
-enemyTurn(Knight, Slime)
+const battleCalc = (player, enemy) => {
+    const list3 = document.getElementById('textList')
+    const textBoxtext1 = document.createElement('li')
+    if (enemy.health <= 0) {
+        rewardScreen(player, enemy, list3, textBoxtext1)
+    }
+    else if (player.health <= 0) {
+        textBoxtext1.textContent = 'You Lose!!! :( GAME OVER!!!!'
+        list3.appendChild(textBoxtext1)
+        const list2 = document.getElementById('battleList')
+        list2.innerHTML = ''
+        fight = true
+    }
+    else {
+        enemyTurn(player, enemy)
+    }
+
+}
+
+// rewardScreen(Knight, Slime)
+// enemyTurn(Knight, Slime)
 
 //Battle Simulation
 addToInventory(Knight, RedPotion, 'iC')
